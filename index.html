@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Would you survive the Titanic?</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Would you survive the Titanic?">
+  <meta name="author" content="James Dunlop">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Would you survive the Titanic?</h1>
+    <h2>Using logistic regression to calculate your chances of survival</h2>
+    <p>James Dunlop<br/>Independent Contractor</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Slide 1</h2>
+  </hgroup>
+  <article data-timings="">
+    <h1>Background</h1>
+
+<p>The Titanic sunk on April 12 1912, after hitting an iceberg.  There were 1,316 passengers (crew excluded), of which 498 survived, giving a survival rate of 38%.  </p>
+
+<p>There is then the question of whether one could predict whether a passenger would survive, depending on their demographic features.</p>
+
+<p>Overall, certain groups had a higher survival rate than others.  For example, the survival rate for first class passengers was 62%, while for third class passengers it was 25%.</p>
+
+<p>There are a number of mathematical techniques for survival.  They can create models, by which known data about a group of people is entered into the model, and the model outputs its prediction, which can be construed as a percentage chance of survival.  </p>
+
+<p>The application created allows users to enter four pieces of data about a hypothetical passenger on the Titanic, and the output is the expected probability of survival.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Slide 2</h2>
+  </hgroup>
+  <article data-timings="">
+    <h1>Data and Analysis</h1>
+
+<p>Data was available for 1,309 of the the 1,316 passengers.  However data about age was missing in 263 cases, so theses cases were omitted, leaving 1046 passengers.  </p>
+
+<p>A binomial logistic regression was perform, to model the chances of survival.  The four predictor variables used were passenger class, gender, age, and the number of siblings and parents travelling with them.  The model was calculated as follows:</p>
+
+<pre><code class="r">titanic &lt;- read.csv(&quot;c:/titanic15.csv&quot;)
+titanicFit &lt;- glm(survived ~ pclass + sex + age + sibsp,family=&quot;binomial&quot;,data=titanic )
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Slide 3</h2>
+  </hgroup>
+  <article data-timings="">
+    <h1>Results</h1>
+
+<p>The logistic regression model gave the following coefficients:</p>
+
+<pre><code class="r">titanicFit$coef
+</code></pre>
+
+<pre><code>## (Intercept)      pclass     sexmale         age       sibsp 
+##     4.99575    -1.15683    -2.57726    -0.03874    -0.32031
+</code></pre>
+
+<p>The coefficients are used to calculate something called logit.  Logit is used to calculate the probability of survials - details of the mathematical steps are provided in the application.  The intercept of 4.99575 is a constant - it is always put into the equation.  The coefficient pclass, of -1.15683, is passenger class, and is multiplined by a passenger&#39;s class.  Sex is coded 1 for female and 0 for male.  This means that its total is zero for women and -2.57726 for men.  The age in years is mulitiplied by -0.03874, while the number of siblings and parents is multiplied by -0.32031.  All of these five totals are added together, to give the total logit.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Slide 4</h2>
+  </hgroup>
+  <article data-timings="">
+    <h1>The application</h1>
+
+<p>The application allows users to predent that they are a passenger on the Titanic.  They can put in whatever values for the four predictor variables they like.  This is done through two drop down menus (gender and passenger class) and two sliders (age and number of parents and siblings.)</p>
+
+<p>The application gives immediate results.  It tells the user what their chances of survial would be, using the model described in the previous slide.  It also shows how the regression equation changes, as the value of the variables change.  Not only does that application give the percentage chance of survial, but it also gives the odds ratio, which is the chance of surviving divided by the chance of perishing.</p>
+
+<p>This application not only tells users about the Titanic, and how different demographic factors can influence suruvial, but it also shows how binomial logistical regression works, in a way that is both simple and down to earth.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Slide 1'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Slide 2'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Slide 3'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Slide 4'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
