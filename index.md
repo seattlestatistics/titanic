@@ -16,13 +16,13 @@ knit        : slidify::knit2slides
 # Background
 
 
-The Titanic sunk on April 12 1912, after hitting an iceberg.  There were 1,316 passengers (crew excluded), of which 498 survived, giving a survival rate of 38%.  
+The Titanic sunk on April 12 1912, after hitting an iceberg.  There were 1,316 passengers (crew excluded), of whom 498 survived, giving a survival rate of 38%.  
 
 There is then the question of whether one could predict whether a passenger would survive, depending on their demographic features.
 
 Overall, certain groups had a higher survival rate than others.  For example, the survival rate for first class passengers was 62%, while for third class passengers it was 25%.
 
-There are a number of mathematical techniques for survival.  They can create models, by which known data about a group of people is entered into the model, and the model outputs its prediction, which can be construed as a percentage chance of survival.  
+There are a number of mathematical techniques for calculating survival.  They can create models, by which known data about a group of people is entered into the model, and the model outputs its prediction, which can be construed as a percentage chance of survival.  
 
 The application created allows users to enter four pieces of data about a hypothetical passenger on the Titanic, and the output is the expected probability of survival.
 
@@ -60,7 +60,7 @@ titanicFit$coef
 ##     4.99575    -1.15683    -2.57726    -0.03874    -0.32031
 ```
 
-The coefficients are used to calculate something called logit.  Logit is used to calculate the probability of survials - details of the mathematical steps are provided in the application.  The intercept of 4.99575 is a constant - it is always put into the equation.  The coefficient pclass, of -1.15683, is passenger class, and is multiplined by a passenger's class.  Sex is coded 1 for female and 0 for male.  This means that its total is zero for women and -2.57726 for men.  The age in years is mulitiplied by -0.03874, while the number of siblings and parents is multiplied by -0.32031.  All of these five totals are added together, to give the total logit.
+The coefficients were used to calculate something called logit.  Logit is used to calculate the probability of survival - details of the mathematical steps are provided in the application.  The intercept of 4.99575 is a constant - it is always put into the equation.  The coefficient pclass, of -1.15683, is passenger class, and is multiplied by a passenger's class.  Sex is coded 0 for female and 1 for male.  This means that its total is zero for women and -2.57726 for men.  The age in years is mulitiplied by -0.03874, while the number of siblings and parents is multiplied by -0.32031.  All of these five totals are added together, to give the total logit.
 
 ---
 
@@ -68,9 +68,8 @@ The coefficients are used to calculate something called logit.  Logit is used to
 
 # The application
 
-The application allows users to predent that they are a passenger on the Titanic.  They can put in whatever values for the four predictor variables they like.  This is done through two drop down menus (gender and passenger class) and two sliders (age and number of parents and siblings.)
+The application allows users to pretend that they are a passenger on the Titanic.  They can put in whatever values for the four predictor variables they like.  This is done through two drop down menus (gender and passenger class) and two sliders (age and number of parents and siblings.)
 
-The application gives immediate results.  It tells the user what their chances of survial would be, using the model described in the previous slide.  It also shows how the regression equation changes, as the value of the variables change.  Not only does that application give the percentage chance of survial, but it also gives the odds ratio, which is the chance of surviving divided by the chance of perishing.
+The application gives immediate results.  It tells the user what their chances of survial would be, using the model described in the previous slide.  It also shows how the regression equation changes, as the value of the variables change.  Not only does this application give the percentage chance of survial, but it also gives the odds ratio, which is the chance of surviving divided by the chance of perishing.
 
-This application not only tells users about the Titanic, and how different demographic factors can influence suruvial, but it also shows how binomial logistical regression works, in a way that is both simple and down to earth.
-
+As well as telling users about the Titanic, and how different demographic factors  influenced survial, it shows how binomial logistical regression works, in a way that is both simple and down to earth.
